@@ -1,0 +1,16 @@
+FROM golang:1.9-windowsservercore
+
+ENV chocolateyUseWindowsCompression false
+
+COPY . c:/gopath/src/github.com/buildkite/agent
+
+WORKDIR c:\\gopath\\src\\github.com\\buildkite\\agent
+
+RUN powershell -Command \
+    iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1')) 
+
+RUN choco install openssh
+
+RUN go build -i -o c:\gopath\bin\buildkite-agent github.com\buildkite\agent
+
+CMD ["c:\gopath\bin\buildkite-agent", "start"]
