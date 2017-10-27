@@ -111,8 +111,10 @@ func (tp *testPlugin) ToJSON() (string, error) {
 	if err != nil {
 		return "", err
 	}
+	normalizedPath := strings.TrimPrefix(strings.Replace(tp.Path, "\\", "/", -1), "/")
+
 	var p = []interface{}{map[string]interface{}{
-		fmt.Sprintf(`file:///%s#%s`, strings.TrimPrefix(filepath.ToSlash(tp.Path), "/"), strings.TrimSpace(commitHash)): map[string]string{
+		fmt.Sprintf(`file:///%s#%s`, normalizedPath, strings.TrimSpace(commitHash)): map[string]string{
 			"settings": "blah",
 		},
 	}}

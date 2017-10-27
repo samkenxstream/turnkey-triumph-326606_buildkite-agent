@@ -46,8 +46,8 @@ func TestRunningHookDetectsChangedEnvironment(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if afterEnv.Length() != 3 {
-		t.Fatalf("Expected 3 env vars, got %d: %#v", afterEnv.Length(), afterEnv)
+	if afterEnv.Length() != 2 {
+		t.Fatalf("Expected 2 env vars, got %d: %#v", afterEnv.Length(), afterEnv)
 	}
 
 	if actual := afterEnv.Get("LLAMAS"); actual != "rock" {

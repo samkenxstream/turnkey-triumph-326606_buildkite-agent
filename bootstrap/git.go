@@ -3,7 +3,6 @@ package bootstrap
 import (
 	"fmt"
 	"net/url"
-	"path/filepath"
 	"regexp"
 	"strings"
 
@@ -121,8 +120,8 @@ func ParseGittableURL(ref string) (*url.URL, error) {
 			path := matched[3]
 			ref = fmt.Sprintf("ssh://%s%s/%s", user, host, path)
 		} else {
-			ref = fmt.Sprintf("file:///%s",
-				filepath.ToSlash(strings.TrimPrefix(ref, "/")))
+			normalizedRef := strings.Replace(ref, "\\", "/", -1)
+			ref = fmt.Sprintf("file:///%s", strings.TrimPrefix(normalizedRef, "/"))
 		}
 	}
 	return url.Parse(ref)

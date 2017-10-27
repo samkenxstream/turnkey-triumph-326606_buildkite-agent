@@ -14,7 +14,7 @@ func TestParsingGittableRepository(t *testing.T) {
 	}{
 		// files
 		{"/home/vagrant/repo", "file:///home/vagrant/repo", ""},
-		{"C:\\Users\\vagrant\\repo", "file:///C:/Users/vagrant/repo", ""},
+		{`C:\Users\vagrant\repo`, "file:///C:/Users/vagrant/repo", ""},
 		{"file:///C:/Users/vagrant/repo", "file:///C:/Users/vagrant/repo", ""},
 
 		// ssh
@@ -25,12 +25,10 @@ func TestParsingGittableRepository(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		t.Logf("Parsing %s", tc.Ref)
 		u, err := ParseGittableURL(tc.Ref)
 		if err != nil {
 			t.Fatal(err)
 		}
-		t.Logf("%#v", u)
 		if tc.Host != u.Host {
 			t.Fatalf("Expected host %q, got %q", tc.Host, u.Host)
 		}
