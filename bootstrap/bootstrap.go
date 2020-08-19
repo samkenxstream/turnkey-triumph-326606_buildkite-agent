@@ -190,6 +190,7 @@ func (b *Bootstrap) Cancel() error {
 }
 
 func (b *Bootstrap) extractTraceCtx() opentracing.SpanContext {
+	// TODO: fallback to BUILD_ID/JOB_ID
 	traceCtx, ok := b.shell.Env.Get("BUILDKITE_TRACE_CONTEXT")
 	if !ok {
 		// Return nil so a new span will be created
