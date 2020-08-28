@@ -82,7 +82,7 @@ type BootstrapConfig struct {
 	Phases                       []string `cli:"phases" normalize:"list"`
 	Profile                      string   `cli:"profile"`
 	RedactedVars                 []string `cli:"redacted-vars" normalize:"list"`
-	TracingDatadogAddr           string   `cli:"tracing-datadog-addr"`
+	TracingBackend               string   `cli:"tracing-backend"`
 }
 
 var BootstrapCommand = cli.Command{
@@ -310,9 +310,9 @@ var BootstrapCommand = cli.Command{
 			EnvVars: []string{"BUILDKITE_REDACTED_VARS"},
 		},
 		&cli.StringFlag{
-			Name:    "tracing-datadog-addr",
-			Usage:   "Datadog agent address for reporting tracing. If empty, tracing is disabled.",
-			EnvVars: []string{"BUILDKITE_TRACING_DATADOG_ADDR"},
+			Name:    "tracing-backend",
+			Usage:   "The name of the tracing backend to use.",
+			EnvVars: []string{"BUILDKITE_TRACING_BACKEND"},
 			Value:   "",
 		},
 		DebugFlag,
@@ -400,7 +400,7 @@ var BootstrapCommand = cli.Command{
 			Shell:                        cfg.Shell,
 			Phases:                       cfg.Phases,
 			RedactedVars:                 cfg.RedactedVars,
-			TracingDatadogAddr:           cfg.TracingDatadogAddr,
+			TracingBackend:               cfg.TracingBackend,
 		})
 
 		ctx, cancel := context.WithCancel(context.Background())
