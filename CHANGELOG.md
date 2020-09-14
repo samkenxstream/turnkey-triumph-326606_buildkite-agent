@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - Support for job tracing via [Datadog APM](https://www.datadoghq.com/product/apm/). To enable, either set the `tracing-backend` config or the `BUILDKITE_TRACING_BACKEND` env var to `datadog`. By default the agent will attempt to send traces to the default agent address and APM port (`127.0.0.1:8126`), but this can be configured with the `DD_AGENT_HOST` and `DD_AGENT_APM_PORT` env vars.
+- Added support for a shutdown hook that runs during shutdown. Once per agent regardless of the number of workers it spawns.
 
 ## [v3.23.1](https://github.com/buildkite/agent/compare/v3.23.0...v3.23.1) (2020-09-09)
 
