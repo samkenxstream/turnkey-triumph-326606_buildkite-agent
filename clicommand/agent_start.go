@@ -1,6 +1,7 @@
 package clicommand
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"os"
@@ -828,7 +829,7 @@ func shutdownHook(log logger.Logger, hooksPath string) {
 		log.Error("Failed to create shell object for shutdown hook: %v", err)
 		return
 	}
-	if err = sh.RunScript(p, nil); err != nil {
+	if err = sh.RunScript(context.Background(), p, nil); err != nil {
 		log.Error("Shutdown hook error: %v", err)
 	}
 }
